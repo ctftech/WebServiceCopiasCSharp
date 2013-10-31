@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://tempuri.org/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="http://tempuri.org/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ListarTemplatesDisponiveis">
+        <s:complexType />
+      </s:element>
+      <s:element name="ListarTemplatesDisponiveisResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarTemplatesDisponiveisResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SoapLogin" type="s0:SoapLogin" />
+      <s:complexType name="SoapLogin">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="login" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="senha" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="RecuperarCopia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="parametroCopia" type="s0:ParametrosCopia" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ParametrosCopia">
+        <s:complexContent mixed="false">
+          <s:extension base="s0:VO">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Ponteiro" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="CodTemplate" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="QtdRegistro" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="VO" />
+      <s:element name="RecuperarCopiaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarCopiaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </types>
+  <message name="ListarTemplatesDisponiveisSoapIn">
+    <part name="parameters" element="s0:ListarTemplatesDisponiveis" />
+  </message>
+  <message name="ListarTemplatesDisponiveisSoapOut">
+    <part name="parameters" element="s0:ListarTemplatesDisponiveisResponse" />
+  </message>
+  <message name="ListarTemplatesDisponiveisSoapLogin">
+    <part name="SoapLogin" element="s0:SoapLogin" />
+  </message>
+  <message name="RecuperarCopiaSoapIn">
+    <part name="parameters" element="s0:RecuperarCopia" />
+  </message>
+  <message name="RecuperarCopiaSoapOut">
+    <part name="parameters" element="s0:RecuperarCopiaResponse" />
+  </message>
+  <message name="RecuperarCopiaSoapLogin">
+    <part name="SoapLogin" element="s0:SoapLogin" />
+  </message>
+  <portType name="WsCopiaSoap">
+    <operation name="ListarTemplatesDisponiveis">
+      <documentation>Lista todas as cópias disponiveis para a empresa.</documentation>
+      <input message="s0:ListarTemplatesDisponiveisSoapIn" />
+      <output message="s0:ListarTemplatesDisponiveisSoapOut" />
+    </operation>
+    <operation name="RecuperarCopia">
+      <documentation>Através deste método é possivel recuperar registros do banco de dados da CTF para consumir este serviço é necessário que alguns parametros se filtro sejam fornecidos.</documentation>
+      <input message="s0:RecuperarCopiaSoapIn" />
+      <output message="s0:RecuperarCopiaSoapOut" />
+    </operation>
+  </portType>
+  <binding name="WsCopiaSoap" type="s0:WsCopiaSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="ListarTemplatesDisponiveis">
+      <soap:operation soapAction="http://tempuri.org/ListarTemplatesDisponiveis" style="document" />
+      <input>
+        <soap:body use="literal" />
+        <soap:header message="s0:ListarTemplatesDisponiveisSoapLogin" part="SoapLogin" use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="RecuperarCopia">
+      <soap:operation soapAction="http://tempuri.org/RecuperarCopia" style="document" />
+      <input>
+        <soap:body use="literal" />
+        <soap:header message="s0:RecuperarCopiaSoapLogin" part="SoapLogin" use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <binding name="WsCopiaSoap12" type="s0:WsCopiaSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" />
+    <operation name="ListarTemplatesDisponiveis">
+      <soap12:operation soapAction="http://tempuri.org/ListarTemplatesDisponiveis" style="document" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" />
+      <input>
+        <soap12:body use="literal" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" />
+        <soap12:header message="tns:ListarTemplatesDisponiveisSoapLogin" part="SoapLogin" use="literal" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" />
+      </input>
+      <output>
+        <soap12:body use="literal" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" />
+      </output>
+    </operation>
+    <operation name="RecuperarCopia">
+      <soap12:operation soapAction="http://tempuri.org/RecuperarCopia" style="document" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" />
+      <input>
+        <soap12:body use="literal" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" />
+        <soap12:header message="tns:RecuperarCopiaSoapLogin" part="SoapLogin" use="literal" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" />
+      </input>
+      <output>
+        <soap12:body use="literal" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" />
+      </output>
+    </operation>
+  </binding>
+  <service name="WsCopia">
+    <port name="WsCopiaSoap" binding="s0:WsCopiaSoap">
+      <soap:address location="http://www.portalctf.com.br/PortalCopias/wscopia.asmx" />
+    </port>
+    <port name="WsCopiaSoap12" binding="s0:WsCopiaSoap12">
+      <soap12:address location="http://www.portalctf.com.br/PortalCopias/wscopia.asmx" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" />
+    </port>
+  </service>
+</definitions>
